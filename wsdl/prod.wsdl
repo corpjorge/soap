@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://servicios.pagos.sire.uniandes.edu.co/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PagosSitiosExternosServiceService" targetNamespace="http://servicios.pagos.sire.uniandes.edu.co/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://servicios.pagos.sire.uniandes.edu.co/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://servicios.pagos.sire.uniandes.edu.co/">
+  <xs:complexType name="solicitudEstadoPagoDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="productoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="referenciaVenta" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="abstractDTO">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="respuestaEstadoPagoDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="datosPago" type="tns:respuestaEstadoPagoDatosDTO"/>
+          <xs:element minOccurs="0" name="error" type="tns:respuestaEstadoPagoErrorDTO"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="respuestaEstadoPagoDatosDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoRespuesta" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoTransaccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="medioPago" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroTransaccion" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="referenciaVenta" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoMedioPago" type="xs:string"/>
+      <xs:element minOccurs="0" name="valor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="respuestaEstadoPagoErrorDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractDTO">
+        <xs:sequence>
+          <xs:element name="codigo" type="xs:int"/>
+          <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ValidationException" type="tns:ValidationException"/>
+  <xs:complexType name="ValidationException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="solicitudEstado" nillable="true" type="tns:solicitudEstadoPagoDTO"/>
+  <xs:element name="pagosPendientesResponse" nillable="true" type="tns:respuestaEstadoPagoDTO"/>
+  <xs:element name="dato" nillable="true" type="xs:string"/>
+  <xs:element name="estadoSIREResponse" nillable="true" type="xs:string"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="pagosPendientesResponse">
+    <wsdl:part element="tns:pagosPendientesResponse" name="pagosPendientesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ValidationException">
+    <wsdl:part element="tns:ValidationException" name="ValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pagosPendientes">
+    <wsdl:part element="tns:solicitudEstado" name="solicitudEstado">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="estadoSIREResponse">
+    <wsdl:part element="tns:estadoSIREResponse" name="estadoSIREResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="estadoSIRE">
+    <wsdl:part element="tns:dato" name="dato">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PagosSitiosExternosService">
+    <wsdl:operation name="pagosPendientes">
+      <wsdl:input message="tns:pagosPendientes" name="pagosPendientes">
+    </wsdl:input>
+      <wsdl:output message="tns:pagosPendientesResponse" name="pagosPendientesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ValidationException" name="ValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="estadoSIRE">
+      <wsdl:input message="tns:estadoSIRE" name="estadoSIRE">
+    </wsdl:input>
+      <wsdl:output message="tns:estadoSIREResponse" name="estadoSIREResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PagosSitiosExternosServiceServiceSoapBinding" type="tns:PagosSitiosExternosService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="pagosPendientes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="pagosPendientes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pagosPendientesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ValidationException">
+        <soap:fault name="ValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="estadoSIRE">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="estadoSIRE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="estadoSIREResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PagosSitiosExternosServiceService">
+    <wsdl:port binding="tns:PagosSitiosExternosServiceServiceSoapBinding" name="PagosSitiosExternosServicePort">
+      <soap:address location="https://sire.uniandes.edu.co/servicios/PagosSitiosExternosService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

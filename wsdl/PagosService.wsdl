@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://servicios.pagos.sire.uniandes.edu.co/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PagosServiceService" targetNamespace="http://servicios.pagos.sire.uniandes.edu.co/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://servicios.pagos.sire.uniandes.edu.co/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://servicios.pagos.sire.uniandes.edu.co/">
+  <xs:complexType name="solicitudSitioDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="referenciaVenta" type="xs:string"/>
+          <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="valor" type="xs:string"/>
+          <xs:element minOccurs="0" name="iva" type="xs:string"/>
+          <xs:element minOccurs="0" name="baseDevolucionIva" type="xs:string"/>
+          <xs:element minOccurs="0" name="correo" type="xs:string"/>
+          <xs:element minOccurs="0" name="fondoPresupuestal" type="xs:string"/>
+          <xs:element minOccurs="0" name="idioma" type="tns:idioma"/>
+          <xs:element minOccurs="0" name="moneda" type="tns:moneda"/>
+          <xs:element minOccurs="0" name="nombreComprador" type="xs:string"/>
+          <xs:element minOccurs="0" name="apellidoComprador" type="xs:string"/>
+          <xs:element minOccurs="0" name="fechaInicioServicio" type="xs:string"/>
+          <xs:element minOccurs="0" name="fechaFinServicio" type="xs:string"/>
+          <xs:element minOccurs="0" name="fechaLimite" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoIdentificacion" type="tns:tipoIdentificacion"/>
+          <xs:element minOccurs="0" name="numeroIdentificacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroObjetoCosto" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoObjetoCosto" type="tns:tipoObjetoCosto"/>
+          <xs:element minOccurs="0" name="valorAdicional" type="xs:string"/>
+          <xs:element minOccurs="0" name="productoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="claveProducto" type="xs:string"/>
+          <xs:element minOccurs="0" name="urlError" type="xs:string"/>
+          <xs:element minOccurs="0" name="urlRespuesta" type="xs:string"/>
+          <xs:element minOccurs="0" name="celular" type="xs:string"/>
+          <xs:element minOccurs="0" name="telefono" type="xs:string"/>
+          <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+          <xs:element minOccurs="0" name="ciudad" type="xs:string"/>
+          <xs:element minOccurs="0" name="pais" type="xs:string"/>
+          <xs:element minOccurs="0" name="region" type="xs:string"/>
+          <xs:element minOccurs="0" name="ipCliente" type="xs:string"/>
+          <xs:element minOccurs="0" name="userAgentCliente" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="abstractDTO">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:simpleType name="idioma">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="es"/>
+      <xs:enumeration value="en"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="moneda">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="COP"/>
+      <xs:enumeration value="EUR"/>
+      <xs:enumeration value="GBP"/>
+      <xs:enumeration value="MXN"/>
+      <xs:enumeration value="USD"/>
+      <xs:enumeration value="VEB"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tipoIdentificacion">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CEDULA_CIUDADANIA"/>
+      <xs:enumeration value="NIT"/>
+      <xs:enumeration value="CEDULA_EXTRANJERIA"/>
+      <xs:enumeration value="TARJETA_IDENTIDAD"/>
+      <xs:enumeration value="PASAPORTE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tipoObjetoCosto">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CENTRO_BENEFICIO"/>
+      <xs:enumeration value="ORDEN_INTERNA"/>
+      <xs:enumeration value="ELEMENTO_PEP"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ValidationException" type="tns:ValidationException"/>
+  <xs:complexType name="ValidationException">
+    <xs:sequence>
+      <xs:element name="message" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="prepararPago" nillable="true" type="tns:solicitudSitioDTO"/>
+  <xs:element name="prepararPagoResponse" nillable="true" type="xs:string"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="prepararPagoResponse">
+    <wsdl:part element="tns:prepararPagoResponse" name="prepararPagoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ValidationException">
+    <wsdl:part element="tns:ValidationException" name="ValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="prepararPago">
+    <wsdl:part element="tns:prepararPago" name="prepararPago">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PagosService">
+    <wsdl:operation name="prepararPago">
+      <wsdl:input message="tns:prepararPago" name="prepararPago">
+    </wsdl:input>
+      <wsdl:output message="tns:prepararPagoResponse" name="prepararPagoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ValidationException" name="ValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PagosServiceServiceSoapBinding" type="tns:PagosService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="prepararPago">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="prepararPago">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="prepararPagoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ValidationException">
+        <soap:fault name="ValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PagosServiceService">
+    <wsdl:port binding="tns:PagosServiceServiceSoapBinding" name="PagosServicePort">
+      <soap:address location="https://sireqa.uniandes.edu.co/servicios/PagosService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
